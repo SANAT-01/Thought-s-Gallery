@@ -1,0 +1,26 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Adjusts spacing between items */
+  padding: 16px;
+  background-color: #faa7a7;
+}
+
+.header-container h2 {
+  margin: 0;
+}
+
+.header-container button {
+  margin-left: 16px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #313030;
+  border-radius: 4px;
+  background-color: #fbb993;
+}
+
+.header-container button:hover {
+  border-color: #70706d;
+  background-color: #f4580a;
+}

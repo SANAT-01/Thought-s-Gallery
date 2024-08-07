@@ -1,0 +1,45 @@
+.thoughtItem {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 8px;
+  background-color: #f6f0d3;
+}
+
+.thoughtText {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.thoughtAuthor {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.thoughtDate {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.thoughtActions {
+  display: flex;
+  align-items: center;
+  place-content: center;
+}
+
+.thoughtActions span {
+  margin-right: 8px;
+}
+
+.thoughtActions button {
+  margin-right: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.thoughtActions button:hover {
+  color: #007bff;
+}
