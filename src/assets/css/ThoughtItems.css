@@ -1,45 +1,67 @@
+/* Container for individual thought item */
 .thoughtItem {
   border: 1px solid #ccc;
   padding: 16px;
   margin: 16px 0;
   border-radius: 8px;
-  background-color: #f6f0d3;
+  background-color: #f5edcb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.thoughtItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling for the thought text */
 .thoughtText {
   font-size: 1.2em;
   margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
 }
 
+/* Styling for the thought author */
 .thoughtAuthor {
   font-style: italic;
   color: #555;
   margin-bottom: 8px;
+  font-size: 1em;
 }
 
+/* Styling for the thought date */
 .thoughtDate {
   font-size: 0.9em;
   color: #888;
   margin-bottom: 16px;
 }
 
+/* Container for action buttons */
 .thoughtActions {
   display: flex;
   align-items: center;
-  place-content: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.thoughtActions span {
-  margin-right: 8px;
-}
-
+/* Styling for the action buttons */
 .thoughtActions button {
-  margin-right: 8px;
   border: none;
   background: none;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .thoughtActions button:hover {
   color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Styling for the action button icons */
+.thoughtActions span {
+  margin-right: 8px;
+  font-size: 1em;
 }

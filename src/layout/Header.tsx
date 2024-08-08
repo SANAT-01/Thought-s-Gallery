@@ -1,36 +1,45 @@
 import "../assets/css/HearderStyle.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions } from "../store/auth";
-import { useNavigate, NavLink } from "react-router-dom";
+import {
+  useNavigate,
+  Form,
+  useRouteLoaderData,
+  NavLink,
+} from "react-router-dom";
+// import { checkAuthLoader } from "../util/auth";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state: any) => state.auth.isAuthenticated);
+  // const isAuth = useSelector((state: any) => state.auth.isAuthenticated);
+  const token = useRouteLoaderData("root") as string;
 
-  const logoutHandler = () => {
-    dispatch(authActions.logout());
-    navigate("/");
-  };
-
+  // const logoutHandler = () => {
+  //   dispatch(authActions.logout());
+  //   navigate("/logout");
+  // };
+  console.log();
   const loginNav = () => {
-    navigate("/login");
+    dispatch(authActions.login());
+    navigate("/auth");
   };
-  console.log(isAuth);
+  // const checking = checkAuthLoader();
+  // console.log(checking);
 
   return (
     <div className="header-container">
       <h2 className="">Thought's Gallery !!</h2>
-      {!isAuth && (
+      {!token && (
         <div>
           <button onClick={loginNav}>Login</button>
         </div>
       )}
-      {isAuth && (
-        <div>
+      {token && (
+        <Form action="/logout" method="post">
           <NavLink to="/profile"> Profile </NavLink>
-          <button onClick={logoutHandler}>Logout</button>
-        </div>
+          <button>Logout</button>
+        </Form>
       )}
     </div>
   );

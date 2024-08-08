@@ -1,0 +1,60 @@
+/* Container for the AddThought component */
+.add-thought {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  /* background-color: #f9f9f9; */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* background-color: #0056b3; */
+}
+
+/* Styling the form elements */
+.add-thought form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Styling the input field */
+.add-thought input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input field focus state */
+.add-thought input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+/* Styling the submit button */
+.add-thought button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit button hover state */
+.add-thought button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Container for user thoughts */
+.my-thought {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Individual thought item */

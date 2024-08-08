@@ -1,9 +1,10 @@
 import React from "react";
 import ThoughtList from "../components/ThoughtList";
-import AddThought from "../components/AddThought";
+// import AddThought from "../components/AddThought";
 import SearchThought from "../components/SearchThought";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
+// import { useSelector } from "react-redux";
+import "../assets/css/Home.css";
 
 const Home: React.FC = () => {
   //   useEffect(()=>{
@@ -13,22 +14,24 @@ const Home: React.FC = () => {
   //   setUser({name:data.name,rollno:data.rollno})
   // })
   //   },[])
-
-  const isAuth = useSelector((state: any) => state.auth.isAuthenticated);
+  const token = useRouteLoaderData("root");
+  // const isAuth = useSelector((state: any) => state.auth.isAuthenticated);
   const navigate = useNavigate();
   const handleAddThought = () => {
-    if (!isAuth) {
-      navigate("/login");
+    if (!token) {
+      navigate("/auth");
     } else {
       navigate("/add");
     }
   };
-
+  console.log(token);
   return (
     <>
-      <div className="Home">
-        <p>Let your thought inspire the world !!</p>
-        <button onClick={handleAddThought}>Add your Thought</button>
+      <div className="Main">
+        <div className="Home">
+          <p>Let your thought inspire the world !!</p>
+          <button onClick={handleAddThought}>Add your Thought</button>
+        </div>
         <SearchThought />
         <ThoughtList />
       </div>

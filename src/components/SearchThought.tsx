@@ -18,7 +18,7 @@ const SearchThought: React.FC = () => {
 
   const events = useLoaderData();
   useEffect(() => {
-    console.log(events);
+    // console.log(events);
     setUser(events);
   }, []);
 
@@ -38,7 +38,7 @@ const SearchThought: React.FC = () => {
     setWord(selectedOption ? selectedOption.value : "");
   };
 
-  console.log(word);
+  // console.log(word);
   return (
     <div className="search-box">
       <input
@@ -47,6 +47,7 @@ const SearchThought: React.FC = () => {
         className="searchBox"
       />
       <Select
+        className="react-select__control"
         options={options}
         onChange={handleSelectChange}
         isClearable

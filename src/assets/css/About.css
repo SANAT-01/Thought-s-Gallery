@@ -1,0 +1,31 @@
+/* Container styling */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f4f4f9;
+  min-height: 100vh;
+}
+
+/* Paragraph styling */
+.about-container p {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin: 10px 0;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Email styling */
+.about-container p a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.about-container p a:hover {
+  color: #0056b3;
+}
