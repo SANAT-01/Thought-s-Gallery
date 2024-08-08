@@ -1,26 +1,54 @@
+/* Container styling */
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Adjusts spacing between items */
-  padding: 16px;
-  background-color: #faa7a7;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #fdf1f1;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Header title styling */
 .header-container h2 {
   margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
 }
 
+/* Button container styling */
+.header-container > div,
+.header-container form {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Button styling */
 .header-container button {
-  margin-left: 16px;
   padding: 8px 16px;
   font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  border: 2px solid #313030;
-  border-radius: 4px;
-  background-color: #fbb993;
+  transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
 }
 
 .header-container button:hover {
-  border-color: #70706d;
-  background-color: #f4580a;
+  background-color: #0056b3;
+}
+
+/* NavLink styling */
+.header-container a {
+  font-size: 16px;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header-container a:hover {
+  color: #0056b3;
 }

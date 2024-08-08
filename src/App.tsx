@@ -9,12 +9,20 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AddThought from "./components/AddThought";
+// import AuthenticationPage from "./pages/Authentication";
+import AuthenticationPage, {
+  action as authAction,
+} from "./pages/Authentication";
+import { action as logoutAction } from "./pages/Logout";
+import { checkAuthLoader, tokenLoader } from "./util/auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout children={<></>} />,
     errorElement: <ErrorPage />,
+    id: "root",
+    loader: tokenLoader,
     children: [
       {
         index: true,
@@ -75,6 +83,10 @@ const router = createBrowserRouter([
     action: authAction,
   },
   { path: "login", element: <Login /> },
+  {
+    path: "logout",
+    action: logoutAction,
+  },
 ]);
 
 const App: React.FC = () => {

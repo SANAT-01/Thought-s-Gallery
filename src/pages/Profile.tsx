@@ -8,12 +8,13 @@ interface ProfileProps {
   profilePicture: string;
 }
 
-const Profile: React.FC = () => {
+const Profile: React.FC<ProfileProps> = () => {
   const userProfile = {
     name: "Mr. ABC",
     email: "Mr.ABC@Winjit.com",
     bio: "Software Developer at Winjit pvt ltd.",
-    profilePicture: "https://sanat-01.github.io/cv/",
+    profilePicture:
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   };
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(userProfile.name);
