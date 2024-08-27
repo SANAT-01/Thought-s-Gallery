@@ -43,17 +43,17 @@ const router = createBrowserRouter([
       {
         path: "add",
         element: <AddThought />,
-        loader: async () => {
-          const response = await fetch("http://localhost:8080/events");
+        // loader: async () => {
+        //   const response = await fetch("http://localhost:8080/events");
 
-          if (!response.ok) {
-            // ...
-          } else {
-            const resData = await response.json();
-            // console.log(resData);
-            return resData.events;
-          }
-        },
+        //   if (!response.ok) {
+        //     // ...
+        //   } else {
+        //     const resData = await response.json();
+        //     // console.log(resData);
+        //     return resData.events;
+        //   }
+        // },
       },
       { path: "about", element: <About /> },
       { path: "profile", element: <Profile /> },
@@ -94,3 +94,9 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+// create more details for user when logged in
+// enable edit options for profile
+// put tailwindcss
+// search should be functioning
+// rendering should be perfect

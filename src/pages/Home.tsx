@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ThoughtList from "../components/ThoughtList";
 // import AddThought from "../components/AddThought";
 import SearchThought from "../components/SearchThought";
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
           <button onClick={handleAddThought}>Add your Thought</button>
         </div>
         <SearchThought />
-        <ThoughtList />
+        {/* <ThoughtList /> */}
       </div>
     </>
   );

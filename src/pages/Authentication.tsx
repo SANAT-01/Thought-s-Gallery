@@ -22,10 +22,15 @@ export async function action({ request }) {
   }
 
   const data = await request.formData();
+  let nameMatch = data.get("email").match(/^([^@]*)@/);
   const authData = {
     email: data.get("email"),
     password: data.get("password"),
+    img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+    name: nameMatch ? nameMatch[1] : null,
+    bio: "",
   };
+  localStorage.setItem("email", data.get("email"));
 
   const response = await fetch("http://localhost:8080/" + mode, {
     method: "POST",

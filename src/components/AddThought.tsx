@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  useNavigate,
-  useLoaderData,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import ThoughtItem from "./ThoughtItem";
 import "../assets/css/AddThought.css";
 
@@ -19,19 +15,43 @@ interface Thought {
 
 const AddThought: React.FC = () => {
   const [text, setText] = useState("");
-  const [author, setAuthor] = useState("Mr. ABC");
-  const [refresh, setRefresh] = useState(false);
+  const [author, setAuthor] = useState("");
+  const [refresh, setRefresh] = useState<boolean>(false);
   const navigate = useNavigate();
   const [userThoughts, setUserThoughts] = useState<Thought[]>([]);
   const token = useRouteLoaderData("root") as string;
-  const events = useLoaderData() as Thought[];
+  // const events = useLoaderData() as Thought[];
+  const loggedEmail = localStorage.getItem("email");
 
   useEffect(() => {
-    const filteredThoughts = events.filter(
-      (thought) => thought.author === author
-    );
-    setUserThoughts(filteredThoughts);
-  }, [events, author, refresh]);
+    axios
+      .get("http://localhost:8080/events/users")
+      .then((response) => {
+        const user = response.data.user.find(
+          (user) => user.email === loggedEmail
+        );
+        if (user) {
+          setAuthor(user.name);
+          // setNewBio();
+        }
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, [loggedEmail]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/events")
+      .then((response) => {
+        const filteredThoughts = response.data.events.filter(
+          (thought) => thought.author === author
+        );
+        console.log(filteredThoughts);
+        setUserThoughts(filteredThoughts);
+      })
+      .catch((error) => console.error("Error fetching thoughts:", error));
+
+    console.log("Calling use effect");
+  }, [author, refresh]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,11 +74,13 @@ const AddThought: React.FC = () => {
     }
   };
 
-  const handleDelete = (id: string) => {
-    setUserThoughts((prevThoughts) =>
-      prevThoughts.filter((thought) => thought.id !== id)
-    );
-    setRefresh((prev) => !prev); // Toggle the refresh state to trigger useEffect
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`http://localhost:8080/events/${id}`);
+      setRefresh((prev) => !prev);
+    } catch (error) {
+      console.error("Error deleting thought:", error);
+    }
   };
 
   return (

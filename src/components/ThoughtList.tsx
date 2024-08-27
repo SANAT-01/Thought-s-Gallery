@@ -28,7 +28,7 @@ const ThoughtList: React.FC = () => {
   useEffect(() => {
     // console.log(events);
     setThoughts(events);
-  }, []);
+  }, [events]);
 
   return (
     <div>
