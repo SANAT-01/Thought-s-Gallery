@@ -26,14 +26,14 @@ const ThoughtList: React.FC = () => {
 
   const events = useLoaderData();
   useEffect(() => {
-    console.log(events);
+    // console.log(events);
     setThoughts(events);
-  }, []);
+  }, [events]);
 
   return (
     <div>
       {thoughts.map((thought) => (
-        <ThoughtItem key={thought.id} thought={thought} />
+        <ThoughtItem key={thought.id} thought={thought} isAuthor={null} />
       ))}
     </div>
   );

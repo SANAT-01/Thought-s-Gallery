@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/Profile.css";
+import axios from "axios";
 
 interface ProfileProps {
   name: string;
@@ -9,26 +10,44 @@ interface ProfileProps {
 }
 
 const Profile: React.FC = () => {
-  const userProfile = {
-    name: "Mr. ABC",
-    email: "Mr.ABC@Winjit.com",
-    bio: "Software Developer at Winjit pvt ltd.",
-    profilePicture: "https://sanat-01.github.io/cv/",
-  };
+  const [personalData, setPersonalData] = useState<ProfileProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [newName, setNewName] = useState(userProfile.name);
-  const [newEmail, setNewEmail] = useState(userProfile.email);
-  const [newBio, setNewBio] = useState(userProfile.bio);
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newBio, setNewBio] = useState("My Bio");
+
+  const loggedEmail = localStorage.getItem("email");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/events/users")
+      .then((response) => {
+        const user = response.data.user.find(
+          (user) => user.email === loggedEmail
+        );
+        if (user) {
+          setPersonalData(user);
+          setNewName(user.name);
+          setNewEmail(user.email);
+          // setNewBio();
+        }
+      })
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, [loggedEmail]);
 
   const handleSave = () => {
-    // Handle save logic here
+    // Handle save logic here, e.g., sending data to the backend.
     setIsEditing(false);
   };
+
+  if (!personalData) {
+    return <div>Loading...</div>; // Show a loading indicator while data is being fetched
+  }
 
   return (
     <div className="profile-container">
       <img
-        src={userProfile.profilePicture}
+        src={personalData.profilePicture}
         alt="Profile"
         className="profile-picture"
       />
@@ -52,9 +71,9 @@ const Profile: React.FC = () => {
         </div>
       ) : (
         <div className="profile-details">
-          <h2>{userProfile.name}</h2>
-          <p>{userProfile.email}</p>
-          <p>{userProfile.bio}</p>
+          <h2>{newName}</h2>
+          <p>{newEmail}</p>
+          <p>{newBio}</p>
           <button onClick={() => setIsEditing(true)}>Edit Profile</button>
         </div>
       )}

@@ -1,0 +1,73 @@
+/* Container styling */
+
+.Main {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+.Home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+/* Intro text styling */
+.Home p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Button styling */
+.Home button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.Home button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* SearchThought component styling */
+.search-box {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+}
+
+/* ThoughtList component styling */
+.thought-list {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .Home p {
+    font-size: 18px;
+  }
+
+  .Home button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .search-box,
+  .thought-list {
+    max-width: 100%;
+  }
+}
