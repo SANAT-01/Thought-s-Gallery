@@ -5,7 +5,7 @@ import axios from "axios"; // if needed
 import { useLoaderData } from "react-router-dom";
 import ThoughtItem from "./ThoughtItem";
 
-interface Users {
+interface events {
   id: string;
   text: string;
   author: string;
@@ -14,30 +14,61 @@ interface Users {
   dislikes: number;
 }
 
+interface userx {
+  email: string;
+  password: string;
+  img: string;
+  name: string;
+  bio: string;
+  id: string;
+}
+
+interface favx {
+  id: string;
+  idThought: string;
+  user: string[];
+}
+
 const SearchThought: React.FC = () => {
-  const [User, setUser] = useState<Users[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<Users[]>([]);
+  const [UserThougth, setUserThougth] = useState<events[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<events[]>([]);
   const [desc, setDesc] = useState("");
   const [author, setAuthor] = useState<string | null>(null);
-  const events = useLoaderData() as Users[];
-
+  const data = useLoaderData() as {
+    events: events[];
+    users: userx[];
+    fabs: favx;
+  };
+  const events = data.events as events[];
+  const usx = data.users;
+  const fabx = data.fabs;
+  // console.log(fabx);
   useEffect(() => {
     // Set the initial data from loader
-    setUser(events);
+    setUserThougth(events);
   }, [events]);
 
   useEffect(() => {
     // Filter based on the input text and selected author
-    const filtered = User.filter((user) => {
+    const filtered = UserThougth.filter((user) => {
       const matchesDesc = user.text.toLowerCase().includes(desc.toLowerCase());
       const matchesAuthor = author ? user.author === author : true;
       return matchesDesc && matchesAuthor;
     });
     setFilteredUsers(filtered);
-  }, [desc, author, User]);
+  }, [desc, author, UserThougth]);
+
+  const userPictureMap = usx.reduce((acc, user) => {
+    acc[user.name] = user.img;
+    return acc;
+  }, {} as { [key: string]: string });
+
+  // console.log(userPictureMap);
 
   // Extract unique authors
-  const uniqueAuthors = Array.from(new Set(User.map((quote) => quote.author)));
+  const uniqueAuthors = Array.from(
+    new Set(UserThougth.map((quote) => quote.author))
+  );
 
   // Create options array for the select component
   const options = uniqueAuthors.map((author) => ({
@@ -71,7 +102,13 @@ const SearchThought: React.FC = () => {
       {/* Render filtered results */}
       <div>
         {filteredUsers.map((user) => (
-          <ThoughtItem key={user.id} thought={user} isAuthor={null} />
+          <ThoughtItem
+            key={user.id}
+            thought={user}
+            isAuthor={null}
+            userList={userPictureMap}
+            fabs={fabx}
+          />
         ))}
       </div>
     </>

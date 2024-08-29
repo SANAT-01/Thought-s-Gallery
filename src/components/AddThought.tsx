@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useRouteLoaderData } from "react-router-dom";
+import {
+  useNavigate,
+  useRouteLoaderData,
+  useLoaderData,
+} from "react-router-dom";
 import ThoughtItem from "./ThoughtItem";
 import "../assets/css/AddThought.css";
 
@@ -13,6 +17,15 @@ interface Thought {
   dislikes: number;
 }
 
+interface userx {
+  email: string;
+  password: string;
+  img: string;
+  name: string;
+  bio: string;
+  id: string;
+}
+
 const AddThought: React.FC = () => {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
@@ -22,6 +35,9 @@ const AddThought: React.FC = () => {
   const token = useRouteLoaderData("root") as string;
   // const events = useLoaderData() as Thought[];
   const loggedEmail = localStorage.getItem("email");
+  const data = useLoaderData() as { users: userx[] };
+  const usx = data.users;
+  // console.log(usx);
 
   useEffect(() => {
     axios
@@ -45,7 +61,7 @@ const AddThought: React.FC = () => {
         const filteredThoughts = response.data.events.filter(
           (thought) => thought.author === author
         );
-        console.log(filteredThoughts);
+        // console.log(filteredThoughts);
         setUserThoughts(filteredThoughts);
       })
       .catch((error) => console.error("Error fetching thoughts:", error));
@@ -83,6 +99,11 @@ const AddThought: React.FC = () => {
     }
   };
 
+  const userPictureMap = usx.reduce((acc, user) => {
+    acc[user.name] = user.img;
+    return acc;
+  }, {} as { [key: string]: string });
+
   return (
     <div className="add-thought">
       <form onSubmit={handleSubmit}>
@@ -102,6 +123,7 @@ const AddThought: React.FC = () => {
             thought={thought}
             onDelete={handleDelete}
             isAuthor={author}
+            userList={userPictureMap}
           />
         ))}
       </div>

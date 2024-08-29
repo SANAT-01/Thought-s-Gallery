@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/Error";
@@ -9,7 +8,6 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import AddThought from "./components/AddThought";
-// import AuthenticationPage from "./pages/Authentication";
 import AuthenticationPage, {
   action as authAction,
 } from "./pages/Authentication";
@@ -29,13 +27,20 @@ const router = createBrowserRouter([
         element: <Home />,
         loader: async () => {
           const response = await fetch("http://localhost:8080/events");
-
+          const user = await fetch("http://localhost:8080/events/users");
+          const fav = await fetch("http://localhost:8080/fav");
           if (!response.ok) {
             // ...
           } else {
             const resData = await response.json();
-            // console.log(resData);
-            return resData.events;
+            const resUsers = await user.json();
+            const resFav = await fav.json();
+            console.log(resFav);
+            return {
+              events: resData.events,
+              users: resUsers.user,
+              fabs: resFav,
+            };
           }
         },
       },
@@ -43,17 +48,17 @@ const router = createBrowserRouter([
       {
         path: "add",
         element: <AddThought />,
-        // loader: async () => {
-        //   const response = await fetch("http://localhost:8080/events");
-
-        //   if (!response.ok) {
-        //     // ...
-        //   } else {
-        //     const resData = await response.json();
-        //     // console.log(resData);
-        //     return resData.events;
-        //   }
-        // },
+        loader: async () => {
+          const user = await fetch("http://localhost:8080/events/users");
+          console.log(user);
+          if (!user.ok) {
+            // ...
+          } else {
+            const resUsers = await user.json();
+            // console.log(resData);
+            return { users: resUsers.user };
+          }
+        },
       },
       { path: "about", element: <About /> },
       { path: "profile", element: <Profile /> },
@@ -82,7 +87,7 @@ const router = createBrowserRouter([
     element: <AuthenticationPage />,
     action: authAction,
   },
-  { path: "login", element: <Login /> },
+  // { path: "login", element: <Login /> },
   {
     path: "logout",
     action: logoutAction,
@@ -95,8 +100,6 @@ const App: React.FC = () => {
 
 export default App;
 
-// create more details for user when logged in
-// enable edit options for profile
 // put tailwindcss
-// search should be functioning
-// rendering should be perfect
+// enable liking system
+// editing name

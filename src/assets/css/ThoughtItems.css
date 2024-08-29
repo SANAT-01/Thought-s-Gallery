@@ -65,3 +65,32 @@
   margin-right: 8px;
   font-size: 1em;
 }
+
+.thoughtHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profilePicture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.thoughtMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.thoughtAuthor {
+  font-weight: bold;
+  margin: 0;
+}
+
+.thoughtDate {
+  font-size: 0.9em;
+  color: #777;
+  margin: 0;
+}
