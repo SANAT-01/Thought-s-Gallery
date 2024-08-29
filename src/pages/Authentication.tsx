@@ -28,9 +28,11 @@ export async function action({ request }) {
     password: data.get("password"),
     img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
     name: nameMatch ? nameMatch[1] : null,
-    bio: "",
+    bio: "My Bio",
   };
-  localStorage.setItem("email", data.get("email"));
+  console.log(authData);
+
+  // localStorage.setItem("userId", data.get("id"));
 
   const response = await fetch("http://localhost:8080/" + mode, {
     method: "POST",
@@ -41,6 +43,7 @@ export async function action({ request }) {
   });
 
   if (response.status === 422 || response.status === 401) {
+    console.log("401");
     return response;
   }
 
@@ -50,7 +53,7 @@ export async function action({ request }) {
 
   const resData = await response.json();
   const token = resData.token;
-
+  localStorage.setItem("email", data.get("email"));
   localStorage.setItem("token", token);
   const expiration = new Date();
   console.log(expiration);

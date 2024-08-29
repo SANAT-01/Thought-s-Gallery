@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/Profile.css";
 import axios from "axios";
+// import Password from "antd/es/input/Password";
 
 interface ProfileProps {
   name: string;
@@ -13,9 +14,11 @@ const Profile: React.FC = () => {
   const [personalData, setPersonalData] = useState<ProfileProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState("");
+  const [newImage, setNewImage] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [newBio, setNewBio] = useState("My Bio");
-
+  const [newBio, setNewBio] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [xyz, setXYZ] = useState("");
   const loggedEmail = localStorage.getItem("email");
 
   useEffect(() => {
@@ -29,11 +32,32 @@ const Profile: React.FC = () => {
           setPersonalData(user);
           setNewName(user.name);
           setNewEmail(user.email);
-          // setNewBio();
+          setUserId(user.id);
+          setNewBio(user.bio);
+          setNewImage(user.img);
+          setXYZ(user.password);
         }
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, [loggedEmail]);
+
+  const handleEditUser = async () => {
+    try {
+      await axios.patch(`http://localhost:8080/events/user/${userId}`, {
+        email: newEmail,
+        password: xyz,
+        img: newImage,
+        name: newName,
+        bio: newBio,
+        id: "10b916c5-aec1-4211-aec3-62068f2a8e7f",
+      });
+      // thought.text = "editText;" // Update the thought text locally
+    } catch (error) {
+      console.error("Error updating thought:", error);
+    }
+
+    // setIsEditing((prev) => !prev);
+  };
 
   const handleSave = () => {
     // Handle save logic here, e.g., sending data to the backend.
@@ -46,17 +70,20 @@ const Profile: React.FC = () => {
 
   return (
     <div className="profile-container">
-      <img
-        src={personalData.profilePicture}
-        alt="Profile"
-        className="profile-picture"
-      />
+      <img src={newImage} alt="Profile" className="profile-picture" />
       {isEditing ? (
         <div className="profile-details">
           <input
             type="text"
             value={newName}
+            disabled
             onChange={(e) => setNewName(e.target.value)}
+          />
+          <input
+            type="text"
+            value={newImage}
+            // disabled
+            onChange={(e) => setNewImage(e.target.value)}
           />
           <input
             type="email"
@@ -75,6 +102,7 @@ const Profile: React.FC = () => {
           <p>{newEmail}</p>
           <p>{newBio}</p>
           <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+          <button onClick={handleEditUser}> Submit Details</button>
         </div>
       )}
     </div>
